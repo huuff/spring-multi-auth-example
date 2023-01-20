@@ -1,8 +1,31 @@
+# TODO: Use yaml anchors to DRY
+
 services:
+  keycloak_db:
+    image: postgres
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - keycloak_db_volume:/var/lib/postgresql/data
   keycloak:
     image: jboss/keycloak
+    depends_on:
+      - keycloak_db
     ports:
       - 8180:8080
     environment:
       KEYCLOAK_USER: test
       KEYCLOAK_PASSWORD: test
+      DB_VENDOR: POSTGRES
+      DB_ADDR: database
+      DB_PORT: 5432
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+    links:
+      - keycloak_db:database
+volumes:
+  keycloak_db_volume: {}

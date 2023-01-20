@@ -17,7 +17,13 @@ class Entrypoint {
     @PreAuthorize("hasAuthority('SCOPE_sample-scope')")
     @GetMapping("/scoped")
     suspend fun scoped(): ResponseEntity<String> {
-        return ResponseEntity.ok("User has 'sample-scope'")
+        return ResponseEntity.ok("User has scope 'sample-scope'")
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_sample-role')")
+    @GetMapping("/roled")
+    suspend fun roled(): ResponseEntity<String> {
+        return ResponseEntity.ok("User has role 'sample-role'")
     }
 
     @GetMapping("/unauth")
