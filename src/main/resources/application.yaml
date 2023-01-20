@@ -5,3 +5,6 @@ spring:
         jwt:
           issuer-uri: http://localhost:8180/auth/realms/example
           jwk-set-uri: http://localhost:8180/auth/realms/example/protocol/openid-connect/certs
+logging:
+  level:
+    org.springframework.security: "DEBUG"
