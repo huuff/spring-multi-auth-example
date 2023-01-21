@@ -53,20 +53,15 @@ class SecurityConfig {
             logout { disable() }
             httpBasic { disable() }
             oauth2ResourceServer {
-                /*
-                jwt {
-                    jwtAuthenticationConverter()
-                }
-
-                 */
-
                 authenticationManagerResolver = JwtIssuerReactiveAuthenticationManagerResolver(
                     ByIssuerAuthenticationManagerResolver(
                         mapOf(
                             "shared-secret-issuer" to sharedSecretAuthenticationManager,
                             "http://localhost:8180/auth/realms/master" to JwtReactiveAuthenticationManager(
                                 ReactiveJwtDecoders.fromIssuerLocation("http://localhost:8180/auth/realms/master")
-                            )
+                            ).apply {
+                                setJwtAuthenticationConverter(jwtAuthenticationConverter())
+                            }
                         )
                     )
                 )
