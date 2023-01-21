@@ -23,7 +23,7 @@ import xyz.haff.auth.security.shared_secret.SharedSecretAuthenticationManager
 @EnableReactiveMethodSecurity(proxyTargetClass = true)
 class SecurityConfig {
 
-    @Bean
+
     fun jwtAuthenticationConverter(): ReactiveJwtAuthenticationConverter {
         val grantedAuthoritiesConverter = Converter<Jwt, Flux<GrantedAuthority>> { source ->
             Flux.concat(
@@ -57,11 +57,10 @@ class SecurityConfig {
                     jwtAuthenticationConverter()
                 }
             }
-            /*
-            addFilterAt(AuthenticationWebFilter(sharedSecretAuthenticationManager).apply {
+
+            addFilterBefore(AuthenticationWebFilter(sharedSecretAuthenticationManager).apply {
                 setServerAuthenticationConverter(sharedSecretAuthenticationConverter)
             }, SecurityWebFiltersOrder.AUTHENTICATION)
-             */
         }
     }
 }

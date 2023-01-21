@@ -13,10 +13,10 @@ class TokenService {
                 return null
             }
             UserAuthenticationToken(
-                username = decoded.getClaim("username").asString(),
+                username = decoded.getClaim("username")?.asString() ?: "",
                 id = decoded.subject.toInt(),
-                roles = decoded.getClaim("roles").asArray(String::class.java).toList(),
-                scopes = decoded.getClaim("scopes").asArray(String::class.java).toList(),
+                roles = decoded.getClaim("roles")?.asArray(String::class.java)?.toList() ?: listOf(),
+                scopes = decoded.getClaim("scopes")?.asArray(String::class.java)?.toList() ?: listOf(),
                 token = token,
             )
         }
