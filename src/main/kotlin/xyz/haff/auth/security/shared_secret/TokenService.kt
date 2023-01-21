@@ -14,7 +14,7 @@ class TokenService {
             }
             UserAuthenticationToken(
                 username = decoded.getClaim("username")?.asString() ?: "",
-                id = decoded.subject.toInt(),
+                id = decoded.subject,
                 roles = decoded.getClaim("roles")?.asArray(String::class.java)?.toList() ?: listOf(),
                 scopes = decoded.getClaim("scopes")?.asArray(String::class.java)?.toList() ?: listOf(),
                 token = token,

@@ -4,7 +4,7 @@ import org.springframework.security.authentication.AbstractAuthenticationToken
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 
 class UserAuthenticationToken(
-    val id: Int,
+    val id: String,
     val username: String,
     val roles: List<String>,
     val scopes: List<String>,
