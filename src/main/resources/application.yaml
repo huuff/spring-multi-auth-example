@@ -1,3 +1,7 @@
 logging:
   level:
     org.springframework.security: "DEBUG"
+token:
+  issuers:
+    shared_secret: "shared-secret-issuer"
+    keycloak: "http://localhost:8180/auth/realms/master"

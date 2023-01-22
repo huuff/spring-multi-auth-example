@@ -21,7 +21,9 @@ import xyz.haff.auth.security.shared_secret.SharedSecretAuthenticationManager
 @Configuration
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity(proxyTargetClass = true)
-class SecurityConfig {
+class SecurityConfig(
+    private val issuers: Issuers,
+) {
 
 
     fun jwtAuthenticationConverter(): ReactiveJwtAuthenticationConverter {
@@ -56,9 +58,9 @@ class SecurityConfig {
                 authenticationManagerResolver = JwtIssuerReactiveAuthenticationManagerResolver(
                     ByIssuerAuthenticationManagerResolver(
                         mapOf(
-                            "shared-secret-issuer" to sharedSecretAuthenticationManager,
-                            "http://localhost:8180/auth/realms/master" to JwtReactiveAuthenticationManager(
-                                ReactiveJwtDecoders.fromIssuerLocation("http://localhost:8180/auth/realms/master")
+                            issuers.sharedSecret to sharedSecretAuthenticationManager,
+                            issuers.keycloak to JwtReactiveAuthenticationManager(
+                                ReactiveJwtDecoders.fromIssuerLocation(issuers.keycloak)
                             ).apply {
                                 setJwtAuthenticationConverter(jwtAuthenticationConverter())
                             }
