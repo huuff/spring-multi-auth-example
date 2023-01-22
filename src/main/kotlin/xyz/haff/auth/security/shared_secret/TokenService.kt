@@ -9,7 +9,7 @@ class TokenService {
     fun decode(token: String): UserAuthenticationToken? = try {
         JWT.require(JWT_ALGORITHM).build().verify(token).let { decoded ->
             if (decoded.issuer != SHARED_SECRET_ISSUER) {
-                // This token comes from somewhere else (OAuth?), so it's shared secret user
+                // This token comes from somewhere else (OAuth?)
                 return null
             }
             UserAuthenticationToken(

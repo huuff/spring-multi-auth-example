@@ -66,13 +66,6 @@ class SecurityConfig {
                     )
                 )
             }
-
-            /*
-            addFilterBefore(AuthenticationWebFilter(sharedSecretAuthenticationManager).apply {
-                setServerAuthenticationConverter(sharedSecretAuthenticationConverter)
-            }, SecurityWebFiltersOrder.AUTHENTICATION)
-
-             */
         }
     }
 }
